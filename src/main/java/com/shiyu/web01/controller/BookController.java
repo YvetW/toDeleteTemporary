@@ -6,10 +6,7 @@ import com.shiyu.web01.model.vo.Result;
 import com.shiyu.web01.util.BookStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,5 +42,17 @@ public class BookController {
 
         List<Book> books = bookStore.filterBook(filter);
         return new Result(200, "获取成功", books);
+    }
+
+    @PostMapping("/addBooks")
+    public Result addBooks(@RequestBody Book book) {
+        bookStore.addBook(book);
+        return new Result(201, "添加成功", null);
+    }
+
+    @DeleteMapping("/addBooks")
+    public Result addBooks(@RequestParam(value = "id", required = true) Integer id) {
+        bookStore.deleteBook(id);
+        return new Result(201, "删除成功", null);
     }
 }

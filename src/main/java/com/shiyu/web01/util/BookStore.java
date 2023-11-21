@@ -3,10 +3,8 @@ package com.shiyu.web01.util;
 import com.shiyu.web01.model.vo.Book;
 import com.shiyu.web01.model.vo.BookFilter;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @Component
@@ -62,6 +60,20 @@ public class BookStore {
         return res;
     }
 
+    public void addBook(Book book) {
+        if (book.getId() == null) {
+            // set id
+            if (store.isEmpty()) {
+                book.setId(1);
+            } else {
+                Book last = store.get(store.size() - 1);
+                book.setId(last.getId() + 1);
+            }
+        }
+
+        this.store.add(book);
+    }
+
     private void init() {
         Book book1 = new Book(1, "镜花缘1", "作者1", "publisher1");
         Book book2 = new Book(2, "镜花缘2", "作者2", "publisher2");
@@ -71,5 +83,14 @@ public class BookStore {
         store.add(book2);
         store.add(book3);
         store.add(book4);
+    }
+
+    public void deleteBook(Integer id) {
+        for (Book book: store) {
+            if (book.getId().equals(id)) {
+                store.remove(book);
+                break;
+            }
+        }
     }
 }
