@@ -50,7 +50,7 @@ public class BookController {
         return new Result(201, "添加成功", null);
     }
 
-    @DeleteMapping("/addBooks")
+    @DeleteMapping("/deleteBooks")
     public Result addBooks(@RequestParam(value = "id", required = true) Integer id) {
         bookStore.deleteBook(id);
         return new Result(201, "删除成功", null);
